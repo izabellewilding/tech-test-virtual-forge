@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "../Button";
 import { Resource } from "../../lib/types";
@@ -11,6 +11,9 @@ interface SideNavigationProps {
 }
 
 export const SideNavigation = ({ children }: SideNavigationProps) => {
+  const [reversed, setReversed] = useState(false);
+  console.warn(reversed, "reverse");
+
   const { isPending, error, data } = useQuery({
     queryKey: ["repoData"],
     queryFn: () =>
@@ -20,6 +23,14 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
   if (isPending) return "Loading...";
 
   if (error) return "An error has occurred: " + error.message;
+
+  const orderedData = data.sort((a: Resource, b: Resource) =>
+    a.name[0].localeCompare(b.name[0])
+  );
+  const reverseOrderedData = [...orderedData].reverse();
+
+  const finalData = reversed ? reverseOrderedData : orderedData;
+
   return (
     <>
       <button
@@ -51,21 +62,37 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
       >
         <div className="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto">
           <div>
-            <p className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+            <p className="flex items-center p-2 text-gray-900 rounded-lg group">
               <p className=" bg-indigo-600 text-white p-2 rounded-md text-lg">
                 VF
               </p>
               <span className="ms-3 uppercase">Resourcing</span>
             </p>
-
+            <div className="flex flex-row justify-between border-y-0 border-gray-500 ">
+              <p>Sort</p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setReversed(false)}
+                  className="rounded-md  p-1"
+                >
+                  A-Z
+                </button>
+                <button
+                  onClick={() => setReversed(true)}
+                  className="rounded-md p-1 active:bg-violet-500"
+                >
+                  Z-A
+                </button>
+              </div>
+            </div>
             <ul className="space-y-2 font-medium">
-              {data.map((item: Resource) => (
+              {finalData.map((item: Resource) => (
                 <li>
                   <Link
                     href={item.name}
                     className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
                   >
-                    <span className="ms-3 uppercase">{item.name}</span>
+                    {item.name}
                   </Link>
                 </li>
               ))}

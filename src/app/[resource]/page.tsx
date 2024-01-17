@@ -1,3 +1,3 @@
 export default function Resource({ params }: { params: { resource: any } }) {
-  return <h1> </h1>;
+  return <div className="bg-white"> hi</div>;
 }
