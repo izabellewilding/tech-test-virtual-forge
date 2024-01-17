@@ -33,30 +33,32 @@ export const SideNavbar = ({ children, navItems }: SideNavbarProps) => {
       </button>
       <aside
         id="default-sidebar"
-        className=" fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto">
-          <li>
+        <div className="flex justify-between h-full px-3 py-4 overflow-y-auto">
+          <div>
             <p className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
               <p className=" bg-indigo-600 text-white p-2 rounded-md text-lg">
                 VF
               </p>
               <span className="ms-3 uppercase">Resourcing</span>
             </p>
-          </li>
-          <ul className="space-y-2 font-medium">
-            {navItems.map((item: Resource) => (
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
-                >
-                  <span className="ms-3 uppercase">{item.name}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+
+            <ul className="space-y-2 font-medium">
+              {navItems.map((item: Resource) => (
+                <li>
+                  <a
+                    href="#"
+                    className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+                  >
+                    <span className="ms-3 uppercase">{item.name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <Button className="bg-indigo-600 px-5">+ New Resource</Button>
         </div>
       </aside>
