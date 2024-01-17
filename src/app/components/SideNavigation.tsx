@@ -1,10 +1,10 @@
 import React from "react";
-
+import { Button } from "./Button";
 interface SideNavbarProps {
   children: React.ReactElement;
 }
 
-export function SideNavbar({ children }: SideNavbarProps) {
+export const SideNavbar = ({ children }: SideNavbarProps) => {
   return (
     <>
       <button
@@ -48,9 +48,10 @@ export function SideNavbar({ children }: SideNavbarProps) {
               </a>
             </li>
           </ul>
+          <Button className="bg-indigo-600 px-5">+ New Resource</Button>
         </div>
       </aside>
       <div className="sm:ml-64">{children}</div>
     </>
   );
-}
+};
