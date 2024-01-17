@@ -57,29 +57,37 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
       </button>
       <aside
         id="default-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className="fixed top-0 left-0 z-40 w-72 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-gray-100 bg-blue-50 p-1"
         aria-label="Sidebar"
       >
         <div className="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto">
-          <div>
-            <p className="flex items-center p-2 text-gray-900 rounded-lg group">
-              <p className=" bg-indigo-600 text-white p-2 rounded-md text-lg">
+          <div className="flex flex-col gap-3">
+            <p className="flex items-center text-gray-900 rounded-lg group">
+              <p className="bg-purple-700 text-purple-200 p-2 rounded-md text-lg">
                 VF
               </p>
-              <span className="ms-3 uppercase">Resourcing</span>
+              <span className="ms-3 uppercase font-semibold">Resourcing</span>
             </p>
-            <div className="flex flex-row justify-between border-y-0 border-gray-500 ">
-              <p>Sort</p>
-              <div className="flex gap-3">
+            <div className="flex flex-row py-2 justify-between border-y-2 border-gray-300 ">
+              <p className="pl-2 self-center text-sm font-semibold">Sort</p>
+              <div className="flex gap-2">
                 <button
                   onClick={() => setReversed(false)}
-                  className="rounded-md  p-1"
+                  className="rounded-md p-1 text-sm font-semibold"
+                  style={{
+                    backgroundColor: reversed ? "" : "rgb(233 213 255)",
+                    color: reversed ? "" : "rgb(126 34 206)",
+                  }}
                 >
                   A-Z
                 </button>
                 <button
                   onClick={() => setReversed(true)}
-                  className="rounded-md p-1 active:bg-violet-500"
+                  className="rounded-md p-1 text-sm font-semibold"
+                  style={{
+                    backgroundColor: reversed ? "rgb(233 213 255)" : "",
+                    color: reversed ? "rgb(126 34 206)" : "",
+                  }}
                 >
                   Z-A
                 </button>
@@ -90,7 +98,7 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
                 <li>
                   <Link
                     href={item.name}
-                    className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+                    className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100 group"
                   >
                     {item.name}
                   </Link>
