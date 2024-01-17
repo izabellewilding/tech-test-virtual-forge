@@ -1,12 +1,25 @@
+"use client";
+
 import React from "react";
-import { Button } from "./Button";
-import { Resource } from "../lib/types";
-interface SideNavbarProps {
-  children: React.ReactElement;
-  navItems: Resource[];
+import { useQuery } from "@tanstack/react-query";
+import { Button } from "../Button";
+import { Resource } from "../../lib/types";
+import Link from "next/link";
+
+interface SideNavigationProps {
+  children: React.ReactNode;
 }
 
-export const SideNavbar = ({ children, navItems }: SideNavbarProps) => {
+export const SideNavigation = ({ children }: SideNavigationProps) => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ["repoData"],
+    queryFn: () =>
+      fetch("http://localhost:4000/resources").then((res) => res.json()),
+  });
+
+  if (isPending) return "Loading...";
+
+  if (error) return "An error has occurred: " + error.message;
   return (
     <>
       <button
@@ -36,7 +49,7 @@ export const SideNavbar = ({ children, navItems }: SideNavbarProps) => {
         className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
-        <div className="flex justify-between h-full px-3 py-4 overflow-y-auto">
+        <div className="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto">
           <div>
             <p className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
               <p className=" bg-indigo-600 text-white p-2 rounded-md text-lg">
@@ -46,14 +59,14 @@ export const SideNavbar = ({ children, navItems }: SideNavbarProps) => {
             </p>
 
             <ul className="space-y-2 font-medium">
-              {navItems.map((item: Resource) => (
+              {data.map((item: Resource) => (
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    href={item.name}
                     className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
                   >
                     <span className="ms-3 uppercase">{item.name}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
