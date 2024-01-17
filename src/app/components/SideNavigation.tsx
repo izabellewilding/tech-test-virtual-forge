@@ -1,10 +1,12 @@
 import React from "react";
 import { Button } from "./Button";
+import { Resource } from "../lib/types";
 interface SideNavbarProps {
   children: React.ReactElement;
+  navItems: Resource[];
 }
 
-export const SideNavbar = ({ children }: SideNavbarProps) => {
+export const SideNavbar = ({ children, navItems }: SideNavbarProps) => {
   return (
     <>
       <button
@@ -35,18 +37,25 @@ export const SideNavbar = ({ children }: SideNavbarProps) => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto">
+          <li>
+            <p className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+              <p className=" bg-indigo-600 text-white p-2 rounded-md text-lg">
+                VF
+              </p>
+              <span className="ms-3 uppercase">Resourcing</span>
+            </p>
+          </li>
           <ul className="space-y-2 font-medium">
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
-              >
-                <p className=" bg-indigo-600 text-white p-2 rounded-md text-lg">
-                  VF
-                </p>
-                <span className="ms-3 uppercase">Resourcing</span>
-              </a>
-            </li>
+            {navItems.map((item: Resource) => (
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+                >
+                  <span className="ms-3 uppercase">{item.name}</span>
+                </a>
+              </li>
+            ))}
           </ul>
           <Button className="bg-indigo-600 px-5">+ New Resource</Button>
         </div>
