@@ -75,7 +75,9 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
               ))}
             </ul>
           </div>
-          <ButtonPrimary onClick={() => {}}>+ New Resource</ButtonPrimary>
+          <ButtonPrimary asChild={true} onClick={() => {}}>
+            <Link href="/create"> + New Resource </Link>
+          </ButtonPrimary>
         </div>
       </aside>
       <div className="sm:ml-72">{children}</div>

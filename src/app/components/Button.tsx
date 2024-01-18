@@ -1,7 +1,10 @@
+import { Slot } from "@radix-ui/react-slot";
+
 type ButtonBaseProps = {
   className: string;
   children: React.ReactNode;
   onClick: () => void;
+  asChild?: boolean;
 };
 
 type ButtonVariantProps = {
@@ -9,17 +12,25 @@ type ButtonVariantProps = {
   onClick: () => void;
   selected?: boolean;
   lighter?: boolean;
+  asChild?: boolean;
 };
 
-const BaseButton = ({ className, children, onClick }: ButtonBaseProps) => {
+const BaseButton = ({
+  className,
+  children,
+  onClick,
+  asChild,
+}: ButtonBaseProps) => {
+  const Component = asChild ? Slot : "button";
+
   return (
-    <button
+    <Component
       type="button"
       className={`rounded-md align-middle p-3 text-white ${className || ""}`}
       onClick={() => onClick()}
     >
       {children}
-    </button>
+    </Component>
   );
 };
 
