@@ -6,7 +6,7 @@ import { Resource } from "../lib/types";
 export default function Resource() {
   const resourceId = window.location.pathname.slice(1);
 
-  const resourceByIdData = useQuery({
+  const resourceById = useQuery({
     queryKey: ["resourceById", resourceId],
     queryFn: () =>
       fetch(`http://localhost:4000/resources/${resourceId}`).then((res) =>
@@ -14,22 +14,48 @@ export default function Resource() {
       ),
   });
 
-  const skillsData = useQuery({
-    queryKey: ["resourceSkills"],
+  // const skillsData = useQuery({
+  //   queryKey: ["resourceSkills"],
+  //   queryFn: () =>
+  //     fetch("http://localhost:4000/skills").then((res) => res.json()),
+  // });
+
+  const skillsById = useQuery({
+    queryKey: ["skillsById", resourceId],
     queryFn: () =>
-      fetch("http://localhost:4000/skills").then((res) => res.json()),
+      fetch(`http://localhost:4000/resources/${resourceId}/skills`).then(
+        (res) => res.json()
+      ),
   });
 
-  if (resourceByIdData.isPending) return "Loading...";
+  if (resourceById.isPending || skillsById.isPending) return "Loading...";
 
-  if (resourceByIdData.error)
-    return "An error has occurred: " + resourceByIdData.error.message;
+  if (resourceById.error)
+    return "An error has occurred: " + resourceById.error.message;
+
+  const resourceInitials = () => {
+    const words: string[] = resourceById.data.name.split(" ");
+    const initialis = words
+      .map((word) => word.charAt(0).toUpperCase())
+      .join("");
+    return initialis;
+  };
 
   return (
-    <div className="pl-10">
-      <h1 className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100 group">
-        {resourceByIdData.data.name}
-      </h1>
+    <div className="p-9 pt-4">
+      <div className="flex flex-row">
+        <p className="bg-slate-200 rounded-full p-4 font-semibold font">
+          {resourceInitials()}
+        </p>
+        <h1 className="flex items-center font-semibold p-2 pl-4 text-gray-900 rounded-lg hover:bg-blue-100 group">
+          {resourceById.data.name}
+        </h1>
+      </div>
+      {skillsById.data.map((skill: any) => (
+        <ul className="pt-4 pl-10 list-disc font-semibold">
+          <li>{skill.name} </li>
+        </ul>
+      ))}
     </div>
   );
 }

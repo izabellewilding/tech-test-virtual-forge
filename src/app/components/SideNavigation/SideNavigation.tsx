@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "../Button";
+import { ButtonPrimary, ButtonSecondary } from "../Button";
 import { Resource } from "../../lib/types";
 import Link from "next/link";
 
@@ -48,30 +48,22 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
             <div className="flex flex-row py-2 justify-between border-y-2 border-gray-300">
               <p className="pl-2 self-center text-sm font-semibold">Sort</p>
               <div className="flex gap-2">
-                <button
+                <ButtonSecondary
                   onClick={() => setReversed(false)}
-                  className="rounded-md p-1 text-sm font-semibold"
-                  style={{
-                    backgroundColor: reversed ? "" : "rgb(233 213 255)",
-                    color: reversed ? "" : "rgb(126 34 206)",
-                  }}
+                  selected={!reversed}
                 >
                   A-Z
-                </button>
-                <button
+                </ButtonSecondary>
+                <ButtonSecondary
                   onClick={() => setReversed(true)}
-                  className="rounded-md p-1 text-sm font-semibold"
-                  style={{
-                    backgroundColor: reversed ? "rgb(233 213 255)" : "",
-                    color: reversed ? "rgb(126 34 206)" : "",
-                  }}
+                  selected={reversed}
                 >
                   Z-A
-                </button>
+                </ButtonSecondary>
               </div>
             </div>
             <ul className="space-y-2 font-medium">
-              {finalData.map((item: Resource, index: number) => (
+              {finalData.map((item: Resource) => (
                 <li key={item.id}>
                   <Link
                     href={item.id}
@@ -83,10 +75,10 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
               ))}
             </ul>
           </div>
-          <Button className="bg-indigo-600 px-5">+ New Resource</Button>
+          <ButtonPrimary onClick={() => {}}>+ New Resource</ButtonPrimary>
         </div>
       </aside>
-      <div className="sm:ml-64">{children}</div>
+      <div className="sm:ml-72">{children}</div>
     </>
   );
 };
