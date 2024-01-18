@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Resource } from "../lib/types";
 import { ButtonSecondary } from "../components/Button";
+import { ResourceType } from "../lib/types";
 
-export default function Resource() {
-  const [showSkills, setShowSkills] = useState(false);
+export default function ResourcePage() {
+  const [showSkills, setShowSkills] = useState<boolean>(false);
   const resourceId = window.location.pathname.slice(1);
 
-  const resourceById = useQuery({
+  const resourceById = useQuery<ResourceType>({
     queryKey: ["resourceById", resourceId],
     queryFn: () =>
       fetch(`http://localhost:4000/resources/${resourceId}`).then((res) =>
@@ -75,11 +75,15 @@ export default function Resource() {
         </div>
         <div className="pl-2">
           {showSkills ? (
-            skillsById.data.map((skill: any) => (
-              <ul className="pt-4 list-disc font-semibold">
-                <li>{skill.name} </li>
-              </ul>
-            ))
+            skillsById.data ? (
+              skillsById.data.map((skill: any) => (
+                <ul className="pt-4 list-disc font-semibold">
+                  <li key={skill.id}>{skill.name}</li>
+                </ul>
+              ))
+            ) : (
+              "Data is currenly unavailable available."
+            )
           ) : (
             <div>Overview</div>
           )}

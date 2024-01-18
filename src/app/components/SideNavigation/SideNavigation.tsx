@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ButtonPrimary, ButtonSecondary } from "../Button";
-import { Resource } from "../../lib/types";
+import { ResourceType } from "../../lib/types";
 import Link from "next/link";
 
 interface SideNavigationProps {
@@ -23,12 +23,12 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
 
   if (error) return "An error has occurred: " + error.message;
 
-  const orderedData = data.sort((a: Resource, b: Resource) =>
-    a.name[0].localeCompare(b.name[0])
+  const orderedData: ResourceType[] = data.sort(
+    (a: ResourceType, b: ResourceType) => a.name[0].localeCompare(b.name[0])
   );
   const reverseOrderedData = [...orderedData].reverse();
 
-  const finalData = reversed ? reverseOrderedData : orderedData;
+  const finalData: ResourceType[] = reversed ? reverseOrderedData : orderedData;
 
   return (
     <>
@@ -63,7 +63,7 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
               </div>
             </div>
             <ul className="space-y-2 font-medium">
-              {finalData.map((item: Resource) => (
+              {finalData.map((item) => (
                 <li key={item.id}>
                   <Link
                     href={item.id}
