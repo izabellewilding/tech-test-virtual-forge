@@ -18,6 +18,7 @@ export const Form = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     firstname: "",
     lastname: "",
@@ -34,7 +35,7 @@ export const Form = () => {
         ...prevData,
         skills: checked
           ? [...prevData.skills, value]
-          : prevData.skills.filter((skill: any) => skill !== value),
+          : prevData.skills.filter((skill: string) => skill !== value),
       }));
     } else {
       setFormData((prevData) => ({
@@ -56,11 +57,14 @@ export const Form = () => {
       queryClient.invalidateQueries(["resourceData"]);
       router.push(`/dashboard/${response.data.id}`);
     },
+    onError: () => setIsSubmitting(false),
+    onSuccess: () => setIsSubmitting(false),
   });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    setIsSubmitting(true);
 
     if (formData.skills.length >= 1) {
       mutation.mutate({
@@ -68,6 +72,7 @@ export const Form = () => {
         skills: formData.skills.map((s: string) => Number(s)),
       });
     } else {
+      setIsSubmitting(false);
       setError("Please select at least one skill");
     }
   };
@@ -171,7 +176,7 @@ export const Form = () => {
       {error && <div className="pt-3 text-red-600">{error}</div>}
       <div className="pt-8 max-w-36">
         <ButtonPrimary className="bg-indigo-300" type="submit">
-          Save
+          {isSubmitting ? "Submitting..." : "Save"}
         </ButtonPrimary>
       </div>
     </form>

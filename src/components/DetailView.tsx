@@ -2,10 +2,15 @@
 
 import { useState } from "react";
 import { ButtonSecondary } from "./Button";
+import { ResourceType } from "../lib/types";
 
-const SkillList = ({ skills }: { skills: any[] }) => (
+type Skill = {
+  name: string;
+  id: string;
+};
+const SkillList = ({ skills }: { skills: Skill[] }) => (
   <ul className="pl-5 list-disc font-medium gap-2 flex flex-col">
-    {skills.map((skill: any) => (
+    {skills.map((skill) => (
       <li key={skill.id}>{skill.name}</li>
     ))}
   </ul>
@@ -18,9 +23,15 @@ const InfoSection = ({ title, value }: { title: string; value: string }) => (
   </div>
 );
 
-export const DetailView = ({ data }: any) => {
+type Data = ResourceType & {
+  skills: Skill[];
+  role: string;
+  email: string;
+};
+
+export const DetailView = ({ data }: { data: Data }) => {
   const [showSkills, setShowSkills] = useState<boolean>(false);
-  const { name, id, skills, role, email } = data;
+  const { name, skills, role, email } = data;
 
   const resourceInitials = () => {
     const words: string[] = data.name.split(" ");
