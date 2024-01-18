@@ -11,21 +11,17 @@ export default function ResourcePage() {
   const query = useQuery({
     queryKey: ["combinedData", resourceId],
     queryFn: async () => {
-      try {
-        const resourceResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/resources/${resourceId}`
-        );
-        const resourceData = await resourceResponse.json();
+      const resourceResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/resources/${resourceId}`
+      );
+      const resourceData = await resourceResponse.json();
 
-        const skillsResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/resources/${resourceId}/skills`
-        );
-        const skillsData = await skillsResponse.json();
+      const skillsResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/resources/${resourceId}/skills`
+      );
+      const skillsData = await skillsResponse.json();
 
-        return { ...resourceData, skills: skillsData };
-      } catch (error) {
-        throw new Error("Failed to fetch combined data");
-      }
+      return { ...resourceData, skills: skillsData };
     },
   });
   const queryData = query.data;

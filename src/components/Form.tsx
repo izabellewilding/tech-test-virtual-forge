@@ -4,7 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { TextField } from "./TextField";
 import { Checkbox } from "./Checkbox";
-import { ButtonSecondary } from "./Button";
+import { ButtonPrimary } from "./Button";
 
 interface FormData {
   firstname: string;
@@ -17,6 +17,7 @@ interface FormData {
 export const Form = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     firstname: "",
     lastname: "",
@@ -59,11 +60,16 @@ export const Form = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
 
-    mutation.mutate({
-      ...formData,
-      skills: formData.skills.map((s: string) => Number(s)),
-    });
+    if (formData.skills.length >= 1) {
+      mutation.mutate({
+        ...formData,
+        skills: formData.skills.map((s: string) => Number(s)),
+      });
+    } else {
+      setError("Please select at least one skill");
+    }
   };
 
   return (
@@ -71,7 +77,7 @@ export const Form = () => {
       <div className="flex flex-row gap-4">
         <div>
           <TextField
-            label="First Name:"
+            label="First Name"
             name="firstname"
             value={formData.firstname}
             onChange={handleChange}
@@ -79,7 +85,7 @@ export const Form = () => {
           />
 
           <TextField
-            label="Role:"
+            label="Role"
             name="role"
             value={formData.role}
             onChange={handleChange}
@@ -87,7 +93,7 @@ export const Form = () => {
           />
 
           <TextField
-            label="Email:"
+            label="Email"
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -96,7 +102,7 @@ export const Form = () => {
         </div>
 
         <TextField
-          label="Last Name:"
+          label="Last Name"
           name="lastname"
           value={formData.lastname}
           onChange={handleChange}
@@ -106,7 +112,6 @@ export const Form = () => {
 
       <fieldset>
         <legend className="mb-2">Skills:</legend>
-
         <Checkbox
           name="AWS"
           value={"1"}
@@ -163,7 +168,12 @@ export const Form = () => {
           label="Node"
         />
       </fieldset>
-      <ButtonSecondary type="submit">Save</ButtonSecondary>
+      {error && <div className="pt-3 text-red-600">{error}</div>}
+      <div className="pt-8 max-w-36">
+        <ButtonPrimary className="bg-indigo-300" type="submit">
+          Save
+        </ButtonPrimary>
+      </div>
     </form>
   );
 };

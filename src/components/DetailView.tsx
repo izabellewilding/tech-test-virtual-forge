@@ -31,7 +31,7 @@ export const DetailView = ({ data }: any) => {
   };
 
   return (
-    <div className="p-9 pt-4 flex flex-row">
+    <div className=" pt-4 flex flex-row">
       <p
         style={{ height: "56px", width: "56px" }}
         className="bg-slate-200 rounded-full flex items-center justify-center font-medium"
@@ -44,7 +44,7 @@ export const DetailView = ({ data }: any) => {
             {name}
           </h1>
         </div>
-        <div className="pb-4">
+        <div className="pb-4 flex flex-row">
           <ButtonSecondary
             lighter
             onClick={() => setShowSkills(false)}

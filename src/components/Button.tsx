@@ -1,21 +1,17 @@
 import { Slot } from "@radix-ui/react-slot";
 
 type ButtonBaseProps = {
-  className: string;
   children: React.ReactNode;
+  className?: string;
   onClick?: () => void;
   asChild?: boolean;
   type?: "submit" | "button";
 };
 
 type ButtonVariantProps = {
-  children: React.ReactNode;
-  onClick?: () => void;
   selected?: boolean;
   lighter?: boolean;
-  asChild?: boolean;
-  type?: "submit" | "button";
-};
+} & ButtonBaseProps;
 
 const BaseButton = ({
   className,
@@ -29,7 +25,9 @@ const BaseButton = ({
   return (
     <Component
       type={type || "button"}
-      className={`rounded-md align-middle text-center p-3  ${className || ""}`}
+      className={`rounded-md align-middle text-center p-3 w-full whitespace-nowrap ${
+        className || ""
+      }`}
       onClick={onClick}
     >
       {children}
@@ -52,7 +50,7 @@ export const ButtonSecondary = (props: ButtonVariantProps) => {
   return (
     <BaseButton
       className={
-        "rounded-md py-1 text-sm font-medium  " +
+        "rounded-md py-1 text-sm font-medium " +
         (props.selected
           ? "bg-indigo-100 text-indigo-600"
           : props.lighter
