@@ -33,8 +33,8 @@ export const DetailView = ({ data }: any) => {
   return (
     <div className="p-9 pt-4 flex flex-row">
       <p
-        style={{ height: "57px", width: "60px", padding: "15px" }}
-        className="bg-slate-200 rounded-full font-semibold font"
+        style={{ height: "56px", width: "56px" }}
+        className="bg-slate-200 rounded-full flex items-center justify-center font-medium"
       >
         {resourceInitials()}
       </p>

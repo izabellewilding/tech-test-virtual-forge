@@ -42,7 +42,7 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
         <div className="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto">
           <div className="flex flex-col gap-3">
             <div className="flex items-center text-gray-900 rounded-lg group">
-              <p className="bg-purple-700 text-purple-200 p-2 rounded-md text-lg">
+              <p className="bg-indigo-700 text-purple-200 p-2 rounded-md text-lg">
                 VF
               </p>
               <h1 className="ms-3 uppercase font-semibold">Resourcing</h1>
@@ -69,7 +69,7 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
                 <li key={item.id}>
                   <Link
                     href={`/dashboard/${item.id}`}
-                    className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100 group"
+                    className="flex items-center p-1 text-gray-900 rounded-lg hover:bg-blue-100 group"
                   >
                     {item.name}
                   </Link>
