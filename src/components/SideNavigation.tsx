@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { ButtonPrimary, ButtonSecondary } from "../Button";
-import { Loading } from "../Loading";
-import { ResourceType } from "../../lib/types";
+import { ButtonPrimary, ButtonSecondary } from "./Button";
+import { Loading } from "./Loading";
+import { ResourceType } from "../lib/types";
 
 interface SideNavigationProps {
   children: React.ReactNode;
