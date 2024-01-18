@@ -44,32 +44,47 @@ export default function Resource() {
   };
 
   return (
-    <div className="p-9 pt-4">
-      <div className="flex flex-row">
-        <p className="bg-slate-200 rounded-full p-4 font-semibold font">
-          {resourceInitials()}
-        </p>
-        <h1 className="flex items-center font-semibold p-2 pl-4 text-gray-900 rounded-lg hover:bg-blue-100 group">
-          {resourceById.data.name}
-        </h1>
+    <div className="p-9 pt-4 flex flex-row">
+      <p
+        style={{ height: "57px", width: "60px", padding: "15px" }}
+        className="bg-slate-200 rounded-full font-semibold font"
+      >
+        {resourceInitials()}
+      </p>
+      <div className="flex flex-col pl-8 gap-6">
+        <div className="pb-4">
+          <h1 className="flex items-center font-semibold p-2  text-gray-900 rounded-lg hover:bg-blue-100 group">
+            {resourceById.data.name}
+          </h1>
+        </div>
+        <div className="">
+          <ButtonSecondary
+            lighter
+            onClick={() => setShowSkills(false)}
+            selected={!showSkills}
+          >
+            Overview
+          </ButtonSecondary>
+          <ButtonSecondary
+            lighter
+            onClick={() => setShowSkills(true)}
+            selected={showSkills}
+          >
+            Skills
+          </ButtonSecondary>
+        </div>
+        <div className="pl-2">
+          {showSkills ? (
+            skillsById.data.map((skill: any) => (
+              <ul className="pt-4 list-disc font-semibold">
+                <li>{skill.name} </li>
+              </ul>
+            ))
+          ) : (
+            <div>Overview</div>
+          )}
+        </div>
       </div>
-      <div>
-        <ButtonSecondary lighter onClick={() => setShowSkills(false)}>
-          Overview
-        </ButtonSecondary>
-        <ButtonSecondary lighter onClick={() => setShowSkills(true)}>
-          Skills
-        </ButtonSecondary>
-      </div>
-      {showSkills ? (
-        skillsById.data.map((skill: any) => (
-          <ul className="pt-4 pl-10 list-disc font-semibold">
-            <li>{skill.name} </li>
-          </ul>
-        ))
-      ) : (
-        <div>Overview</div>
-      )}
     </div>
   );
 }
