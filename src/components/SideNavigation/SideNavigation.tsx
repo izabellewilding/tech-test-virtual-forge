@@ -68,7 +68,7 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
               {finalData.map((item) => (
                 <li key={item.id}>
                   <Link
-                    href={item.id}
+                    href={`resource/${item.id}`}
                     className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100 group"
                   >
                     {item.name}

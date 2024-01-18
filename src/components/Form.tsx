@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { TextField } from "./TextField";
 import { Checkbox } from "./Checkbox";
@@ -13,6 +14,8 @@ interface FormData {
 }
 
 export const Form = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState<FormData>({
     firstname: "",
     lastname: "",
@@ -40,11 +43,15 @@ export const Form = () => {
   };
 
   const mutation = useMutation({
-    mutationFn: (resource: Omit<FormData, "skills"> & { skills: number[] }) => {
-      return axios.post(
+    mutationFn: async (
+      resource: Omit<FormData, "skills"> & { skills: number[] }
+    ) => {
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/resources`,
         resource
       );
+      queryClient.invalidateQueries(["resourceData"]);
+      router.push(`/${response.data.id}`);
     },
   });
 

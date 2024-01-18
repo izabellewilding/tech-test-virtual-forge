@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { ButtonSecondary } from "../components/Button";
-import { ResourceType } from "../lib/types";
+import { ButtonSecondary } from "../../../components/Button";
+import { ResourceType } from "../../../lib/types";
 
 export default function ResourcePage() {
   const [showSkills, setShowSkills] = useState<boolean>(false);
