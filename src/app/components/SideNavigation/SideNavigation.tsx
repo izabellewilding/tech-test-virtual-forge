@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "../Button";
 import { Resource } from "../../lib/types";
@@ -32,28 +32,6 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
 
   return (
     <>
-      <button
-        data-drawer-target="default-sidebar"
-        data-drawer-toggle="default-sidebar"
-        aria-controls="default-sidebar"
-        type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-      >
-        <span className="sr-only">Open sidebar</span>
-        <svg
-          className="w-6 h-6"
-          aria-hidden="true"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clipRule="evenodd"
-            fillRule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-          />
-        </svg>
-      </button>
       <aside
         id="default-sidebar"
         className="fixed top-0 left-0 z-40 w-72 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-gray-100 bg-blue-50 p-1"
@@ -61,13 +39,13 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
       >
         <div className="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto">
           <div className="flex flex-col gap-3">
-            <p className="flex items-center text-gray-900 rounded-lg group">
+            <div className="flex items-center text-gray-900 rounded-lg group">
               <p className="bg-purple-700 text-purple-200 p-2 rounded-md text-lg">
                 VF
               </p>
-              <span className="ms-3 uppercase font-semibold">Resourcing</span>
-            </p>
-            <div className="flex flex-row py-2 justify-between border-y-2 border-gray-300 ">
+              <h1 className="ms-3 uppercase font-semibold">Resourcing</h1>
+            </div>
+            <div className="flex flex-row py-2 justify-between border-y-2 border-gray-300">
               <p className="pl-2 self-center text-sm font-semibold">Sort</p>
               <div className="flex gap-2">
                 <button
@@ -93,10 +71,10 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
               </div>
             </div>
             <ul className="space-y-2 font-medium">
-              {finalData.map((item: Resource) => (
-                <li>
+              {finalData.map((item: Resource, index: number) => (
+                <li key={item.id}>
                   <Link
-                    href={item.name}
+                    href={item.id}
                     className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100 group"
                   >
                     {item.name}
@@ -105,7 +83,6 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
               ))}
             </ul>
           </div>
-
           <Button className="bg-indigo-600 px-5">+ New Resource</Button>
         </div>
       </aside>
