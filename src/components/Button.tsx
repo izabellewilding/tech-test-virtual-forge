@@ -26,7 +26,9 @@ const BaseButton = ({
   return (
     <Component
       type="button"
-      className={`rounded-md align-middle p-3 text-white ${className || ""}`}
+      className={`rounded-md align-middle text-center p-3 text-white ${
+        className || ""
+      }`}
       onClick={() => onClick()}
     >
       {children}
