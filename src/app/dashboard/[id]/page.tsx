@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import { Loading } from "../../../components/Loading";
 import { DetailView } from "../../../components/DetailView";
 
 export default function ResourcePage() {
@@ -28,7 +29,7 @@ export default function ResourcePage() {
   const queryError = query.error;
   const queryPending = query.isPending;
 
-  if (queryPending) return <p>Loading, please wait.. </p>;
+  if (queryPending) return <Loading />;
 
   if (queryError) return "An error has occurred: " + queryError.message;
 

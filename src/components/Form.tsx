@@ -54,7 +54,7 @@ export const Form = () => {
       );
       //@ts-ignore
       queryClient.invalidateQueries(["resourceData"]);
-      router.push(`/${response.data.id}`);
+      router.push(`/dashboard/${response.data.id}`);
     },
   });
 

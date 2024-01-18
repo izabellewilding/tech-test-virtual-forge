@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { ButtonPrimary, ButtonSecondary } from "../Button";
+import { Loading } from "../Loading";
 import { ResourceType } from "../../lib/types";
 
 interface SideNavigationProps {
@@ -21,7 +22,7 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
       ),
   });
 
-  if (isPending) return "Loading...";
+  if (isPending) return <Loading />;
 
   if (error) return "An error has occurred: " + error.message;
 
