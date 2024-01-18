@@ -1,3 +1,10 @@
+"use client";
+import { Form } from "../components/Form";
+
 export default function AddResource() {
-  return <main className="">Add resource</main>;
+  return (
+    <main className="">
+      <Form />
+    </main>
+  );
 }

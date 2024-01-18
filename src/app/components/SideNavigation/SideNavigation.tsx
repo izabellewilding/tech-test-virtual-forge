@@ -16,7 +16,9 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
   const { isPending, error, data } = useQuery({
     queryKey: ["resourceData"],
     queryFn: () =>
-      fetch("http://localhost:4000/resources").then((res) => res.json()),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/resources`).then((res) =>
+        res.json()
+      ),
   });
 
   if (isPending) return "Loading...";

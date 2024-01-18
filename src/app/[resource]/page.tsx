@@ -11,8 +11,8 @@ export default function ResourcePage() {
   const resourceById = useQuery<ResourceType>({
     queryKey: ["resourceById", resourceId],
     queryFn: () =>
-      fetch(`http://localhost:4000/resources/${resourceId}`).then((res) =>
-        res.json()
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/resources/${resourceId}`).then(
+        (res) => res.json()
       ),
   });
 
@@ -25,9 +25,9 @@ export default function ResourcePage() {
   const skillsById = useQuery({
     queryKey: ["skillsById", resourceId],
     queryFn: () =>
-      fetch(`http://localhost:4000/resources/${resourceId}/skills`).then(
-        (res) => res.json()
-      ),
+      fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/resources/${resourceId}/skills`
+      ).then((res) => res.json()),
   });
 
   if (resourceById.isPending || skillsById.isPending) return "Loading...";
@@ -76,11 +76,11 @@ export default function ResourcePage() {
         <div className="pl-2">
           {showSkills ? (
             skillsById.data ? (
-              skillsById.data.map((skill: any) => (
-                <ul className="pt-4 list-disc font-semibold">
+              <ul className="pt-4 list-disc font-semibold">
+                {skillsById.data.map((skill: any) => (
                   <li key={skill.id}>{skill.name}</li>
-                </ul>
-              ))
+                ))}
+              </ul>
             ) : (
               "Data is currenly unavailable available."
             )
