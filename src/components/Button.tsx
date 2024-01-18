@@ -26,9 +26,7 @@ const BaseButton = ({
   return (
     <Component
       type="button"
-      className={`rounded-md align-middle text-center p-3 text-white ${
-        className || ""
-      }`}
+      className={`rounded-md align-middle text-center p-3  ${className || ""}`}
       onClick={() => onClick()}
     >
       {children}
@@ -48,9 +46,9 @@ export const ButtonSecondary = (props: ButtonVariantProps) => {
   return (
     <BaseButton
       className={
-        "rounded-md p-1 text-sm font-medium  " +
+        "rounded-md py-1 text-sm font-medium  " +
         (props.selected
-          ? "bg-indigo-200 text-indigo-600"
+          ? "bg-indigo-100 text-indigo-600"
           : props.lighter
           ? "text-gray-500"
           : "text-black")
