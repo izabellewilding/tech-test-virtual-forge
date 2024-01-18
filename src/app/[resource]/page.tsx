@@ -1,9 +1,11 @@
 "use client";
-
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Resource } from "../lib/types";
+import { ButtonSecondary } from "../components/Button";
 
 export default function Resource() {
+  const [showSkills, setShowSkills] = useState(false);
   const resourceId = window.location.pathname.slice(1);
 
   const resourceById = useQuery({
@@ -51,11 +53,23 @@ export default function Resource() {
           {resourceById.data.name}
         </h1>
       </div>
-      {skillsById.data.map((skill: any) => (
-        <ul className="pt-4 pl-10 list-disc font-semibold">
-          <li>{skill.name} </li>
-        </ul>
-      ))}
+      <div>
+        <ButtonSecondary lighter onClick={() => setShowSkills(false)}>
+          Overview
+        </ButtonSecondary>
+        <ButtonSecondary lighter onClick={() => setShowSkills(true)}>
+          Skills
+        </ButtonSecondary>
+      </div>
+      {showSkills ? (
+        skillsById.data.map((skill: any) => (
+          <ul className="pt-4 pl-10 list-disc font-semibold">
+            <li>{skill.name} </li>
+          </ul>
+        ))
+      ) : (
+        <div>Overview</div>
+      )}
     </div>
   );
 }
