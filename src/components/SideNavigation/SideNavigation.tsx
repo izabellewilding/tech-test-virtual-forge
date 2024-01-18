@@ -82,7 +82,7 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
           </ButtonPrimary>
         </div>
       </aside>
-      <div className="sm:ml-72">{children}</div>
+      <div className="sm:ml-72 p-4">{children}</div>
     </>
   );
 };

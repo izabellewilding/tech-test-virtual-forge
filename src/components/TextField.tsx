@@ -1,4 +1,4 @@
-import React, { ChangeEvent, InputProps } from "react";
+import React, { ChangeEvent } from "react";
 
 interface TextFieldProps {
   label: string;

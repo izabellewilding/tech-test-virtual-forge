@@ -32,7 +32,7 @@ export default function ResourcePage() {
   const queryError = query.error;
   const queryPending = query.isPending;
 
-  if (queryPending) return "Loading...";
+  if (queryPending) return <p>Loading, please wait.. </p>;
 
   if (queryError) return "An error has occurred: " + queryError.message;
 

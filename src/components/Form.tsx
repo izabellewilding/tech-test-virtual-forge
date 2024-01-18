@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { TextField } from "./TextField";
 import { Checkbox } from "./Checkbox";
+import { ButtonSecondary } from "./Button";
 
 interface FormData {
   firstname: string;
@@ -50,6 +51,7 @@ export const Form = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/resources`,
         resource
       );
+      //@ts-ignore
       queryClient.invalidateQueries(["resourceData"]);
       router.push(`/${response.data.id}`);
     },
@@ -161,8 +163,7 @@ export const Form = () => {
           label="Node"
         />
       </fieldset>
-
-      <button type="submit">Submit</button>
+      <ButtonSecondary type="submit">Save</ButtonSecondary>
     </form>
   );
 };
