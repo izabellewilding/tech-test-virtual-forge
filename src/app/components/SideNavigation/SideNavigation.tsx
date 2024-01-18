@@ -12,10 +12,9 @@ interface SideNavigationProps {
 
 export const SideNavigation = ({ children }: SideNavigationProps) => {
   const [reversed, setReversed] = useState(false);
-  console.warn(reversed, "reverse");
 
   const { isPending, error, data } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["resourceData"],
     queryFn: () =>
       fetch("http://localhost:4000/resources").then((res) => res.json()),
   });
