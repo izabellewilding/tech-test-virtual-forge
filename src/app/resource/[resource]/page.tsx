@@ -1,12 +1,15 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ButtonSecondary } from "../../../components/Button";
 import { ResourceType } from "../../../lib/types";
 
 export default function ResourcePage() {
   const [showSkills, setShowSkills] = useState<boolean>(false);
-  const resourceId = window.location.pathname.slice(1);
+  const params = useParams();
+  const resourceId = params.resource;
 
   const resourceById = useQuery<ResourceType>({
     queryKey: ["resourceById", resourceId],

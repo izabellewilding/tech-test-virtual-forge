@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { ButtonPrimary, ButtonSecondary } from "../Button";
 import { ResourceType } from "../../lib/types";
-import Link from "next/link";
 
 interface SideNavigationProps {
   children: React.ReactNode;
@@ -68,7 +68,7 @@ export const SideNavigation = ({ children }: SideNavigationProps) => {
               {finalData.map((item) => (
                 <li key={item.id}>
                   <Link
-                    href={`resource/${item.id}`}
+                    href={`/resource/${item.id}`}
                     className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-100 group"
                   >
                     {item.name}
